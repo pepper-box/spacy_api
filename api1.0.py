@@ -2,6 +2,9 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import spacy
+import en_core_web_sm
+en_core_web_sm.load()
+
 nlp = spacy.load("en_core_web_sm")
 app = FastAPI()
 
@@ -14,7 +17,7 @@ def calculate(a: int=None, b: int=None):
 
 @app.get('/')
 def hello():
-    return "Hello"
+    return "Hello1"
 
 class Item(BaseModel):
     POS: str = None
@@ -35,5 +38,6 @@ if __name__ == '__main__':
     import uvicorn
 
     uvicorn.run(app=app,
+                host='0.0.0.0',
                 port=8080,
                 workers=1)
